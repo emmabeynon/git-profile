@@ -11,11 +11,19 @@ describe('Github Profile finder', function(){
   });
 
   it('finds profiles', function(){
-    browser.get('http://localhost:8080');
-
-    searchBox.sendKeys('spike01');
+    searchBox.sendKeys('spike');
     searchButton.click();
 
-    expect(element(by.binding('user.login')).getText()).toEqual('spike01');
+    var profiles = element.all(by.repeater('user in searchCtrl.searchResult.items'));
+    expect(profiles.get(0).getText()).toContain('spike');
+    expect(profiles.count()).toBe(30);
+  });
+
+  it('displays user\'s repos', function() {
+    searchBox.sendKeys('spike');
+    searchButton.click();
+
+    var profiles = element.all(by.repeater('user in searchCtrl.searchResult.items'));
+    expect(profiles.get(0).getText()).toContain('Repos:');
   });
 });

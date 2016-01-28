@@ -13,3 +13,14 @@ githubUserSearch.factory('Search', ['$http', function($http){
     }
   };
 }]);
+
+githubUserSearch.factory('Repos', ['$http', function($http){
+  return {
+    query: function(url) {
+      return $http({
+        url: url,
+        method: 'GET',
+      });
+    }
+  };
+}]);
